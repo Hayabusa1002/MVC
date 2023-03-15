@@ -14,5 +14,11 @@
             $data = [ 'title' => TITLE ];
             $this->view('pages/login', $data);
         }
+
+        public function forgot()
+        {
+            $data = [ 'title' => TITLE ];
+            $this->view('pages/forgot', $data);
+        }
     }
 ?>
