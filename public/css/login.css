@@ -20,6 +20,8 @@
   padding: 90px 130px;
 }
 
+.wrap-login.signup { padding: 90px 130px 50px; }
+
 /*------------------------------------------------------------------*/
 .login-logo { width: 320px; }
 .login-logo img { max-width: 100%; }

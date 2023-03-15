@@ -20,5 +20,11 @@
             $data = [ 'title' => TITLE ];
             $this->view('pages/forgot', $data);
         }
+        
+        public function signup()
+        {
+            $data = [ 'title' => TITLE ];
+            $this->view('pages/signup', $data);
+        }
     }
 ?>
