@@ -1,5 +1,5 @@
 # MVC
-Repositorio con estructura base MVC para desarrollos fundamentamos en este diseño.
+Repositorio con estructura MVC para desarrollos fundamentamos en este diseño.
 Este repositorio está basado en PHP y JavaScript para back-end, HTML, CSS y JavaScript para front-end y MySQL como motor de la base de datos.
 
 Tiene como recursos open source:
