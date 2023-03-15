@@ -137,3 +137,9 @@ a.paginate_button.current {
     color: white;
     border-radius: 5px;
 }
+
+
+/* Input border style in forms */
+input.form-control:focus, input.form-control:focus::placeholder {
+    border-color: #85C0FF;
+}
