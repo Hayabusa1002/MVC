@@ -1,0 +1,200 @@
+/* //////////////////////////// [ login ] //////////////////////////// */
+
+.container-login {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background: linear-gradient(-135deg, green, black);
+}
+
+.wrap-login {
+  width: 950px;
+  background: white;
+  border-radius: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 90px 130px;
+}
+
+/*------------------------------------------------------------------*/
+.login-logo { width: 320px; }
+.login-logo img { max-width: 100%; }
+
+/*------------------------------------------------------------------*/
+.login-form { width: 320px; }
+
+.login-form-title {
+  font-family: Poppins-Bold;
+  font-size: 24px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  width: 100%;
+  display: block;
+  padding-bottom: 54px;
+}
+
+/*---------------------------------------------*/
+.wrap-input {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+
+.input-login {
+  font-family: Poppins-Medium;
+  font-size: 15px;
+  color: #666666;
+  display: block;
+  width: 100%;
+  background: #e6e6e6;
+  height: 50px;
+  border-radius: 25px;
+  padding: 0 30px 0 70px;
+}
+
+/* --------------------------------- [ Focus ] --------------------------------- */
+.focus-input {
+  display: block;
+  position: absolute;
+  border-radius: 25px;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 0px 0px;
+  color: rgba(87,184,70, 0.8);
+}
+
+.input-login:focus + .focus-input { animation: anim-shadow 0.5s ease-in-out forwards; }
+
+@keyframes anim-shadow {
+  to {
+    box-shadow: 0px 0px 70px 25px;
+    opacity: 0;
+  }
+}
+
+.symbol-input {
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  padding-left: 35px;
+  pointer-events: none;
+  color: #666666;
+  transition: all 0.5s;
+}
+
+.input-login:focus + .focus-input + .symbol-input {
+  color: #57b846;
+  padding-left: 28px;
+}
+
+/* --------------------------------- [ Show or hide Button ] --------------------------------- */
+.symbol-pswd {
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 12.5%;
+  height: 100%;
+}
+
+.symbol-pswd i#show-hide-icon {
+  position: relative;
+  right: 10%;
+  color: green;
+  cursor: pointer;
+  opacity: 0.25;
+}
+
+.symbol-pswd i#show-hide-icon:hover { opacity: 1; }
+
+/* --------------------------------- [ Button ] --------------------------------- */
+.container-login-form-btn {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.login-form-btn {
+  font-family: Montserrat-Bold;
+  font-size: 15px;
+  color: white;
+  text-transform: uppercase;
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  background: #57b846;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+  transition: all 0.75s;
+}
+
+.login-form-btn:hover { background: #333333; }
+
+/* --------------------------------- [ Links ] --------------------------------- */
+.login-link {
+  font-family: Poppins-Regular;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #999999;
+  text-align: center;
+  padding-top: 18px;
+}
+
+.login-link.second-link { padding-top: 136px; }
+.login-link.signup-link { padding-top: 95px; }
+.login-link.change-pswd-link { padding-top: 115px; }
+
+/* --------------------------------- [ Responsive ] --------------------------------- */
+@media (max-width: 992px) {
+  .wrap-login {
+    padding: 177px 90px 33px 85px;
+  }
+
+  .login-logo {
+    width: 35%;
+  }
+
+  .login-form {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrap-login {
+    padding: 100px 80px 33px 80px;
+  }
+
+  .login-logo {
+    display: none;
+  }
+
+  .login-form {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .wrap-login {
+    padding: 100px 15px 33px 15px;
+  }
+}

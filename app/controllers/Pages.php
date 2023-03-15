@@ -6,7 +6,13 @@
         # Load model
         public function __construct() { $this->userInfo = $this->model('PagesModel'); }
 
-        # Load view
+        # Load views
         public function index() { $this->view('pages/error'); }
+
+        public function login()
+        {
+            $data = [ 'title' => TITLE ];
+            $this->view('pages/login', $data);
+        }
     }
 ?>
