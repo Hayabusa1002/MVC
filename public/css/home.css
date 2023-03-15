@@ -95,3 +95,45 @@
     background-color: #5D6D7E;
     transition: none;
 }
+
+/* //////////////////////////// [ DataTables and Sweet Alert 2 ] //////////////////////////// */
+.card-header {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.card-body.datatable {
+    background: #F9E79F;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.card-body.datatable table thead {
+    background: rgba(128, 128, 128, 0.5);
+    color: white;
+}
+
+div.form-wrapper.swal { overflow-x: hidden; }
+
+/* --------------------------------- [ Fixing: some css from style.css overlaps with adminlte.min.css ] --------------------------------- */
+/* Previous - Current - Next Datatable paging buttons */
+a.paginate_button.previous, a.paginate_button.current, a.paginate_button.next {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+a.paginate_button.previous:hover, a.paginate_button.current, a.paginate_button.next:hover {
+    background-color: rgba(128, 128, 128, 0.5);
+    cursor: pointer;
+    color: white;
+    font: bold;
+    border-radius: 5px;
+}
+
+/* Current paging button */
+a.paginate_button.current {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}

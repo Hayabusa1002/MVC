@@ -15,12 +15,13 @@
     </header>
 
     <main>
-
+        <?php require_once PATH_APP . '/views/templates/home-user-request.php'; ?>
     </main>
 
     <footer></footer>
 
     <?php require_once PATH_APP . '/views/templates/footer-main.php'; ?>
+    <?php require_once PATH_APP . '/views/templates/footer-home.php'; ?>
 </body>
 
 </html>

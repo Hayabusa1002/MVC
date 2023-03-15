@@ -65,7 +65,7 @@
                     <li><a href="<?= PATH_URL ?>/pages/change">Cambiar contraseña</a></li>
 
                     <?php if ($data['userRole'] == 'admin'): ?>
-                        <li><a href="#">Solicitudes</a></li>
+                        <li><a onClick="showDatatable()" href="#">Solicitudes</a></li>
 
                         <li><a href="#">Usuarios</a></li>
                     <?php endif; ?>
