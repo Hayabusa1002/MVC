@@ -1,0 +1,97 @@
+/* //////////////////////////// [ NAVBAR ] //////////////////////////// */
+.navbar-menu {
+    max-width: 100%;
+    padding: 0 10px;
+    margin: auto;
+}
+
+.navbar-logo {
+    float: left;
+    padding: 5px 20px 0;
+}
+
+.navbar-logo img { height: 60px; }
+
+.navbar-menu nav {
+    float: right;
+    display: flex;
+    align-items: center;
+    min-height: 90px;
+    z-index: 1000;
+}
+
+.navbar-menu nav ul { padding: 0 10px; }
+
+.navbar-menu nav ul li {
+    display: inline-block;
+    position: relative;
+    transition: 0.25s linear;
+    z-index: 1000;
+}
+
+.navbar-menu nav ul li a {
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 12px 20px;
+    transition: 0.25s linear;
+}
+
+.navbar-menu .navbar-submenu .items {
+    display: none;
+    background-color: #0b123b;
+    position: absolute;
+    width: 100%;
+}
+
+.navbar-menu .navbar-submenu .items li {
+    display: block;
+    overflow: hidden;
+    border-bottom: none;
+}
+
+.navbar-menu .navbar-submenu .items li a { display: block; }
+
+/* --------------------------------- [ Hover ] --------------------------------- */
+.navbar-logo img:hover,
+.navbar-menu nav ul li:hover {
+    color: #57b846;
+    cursor: pointer;
+}
+
+.navbar-menu nav ul li a:hover { color: #57b846; }
+
+.navbar-submenu a.title { cursor: default; }
+
+.navbar-submenu ul.items li:hover
+{
+    background-color: #0b123b;
+    border-radius: 25px;
+}
+
+.navbar-submenu:hover ul.items {
+    display: block;
+    width: 200%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background-color: #5D6D7E;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+.navbar-submenu:hover ul.items.left-side {
+    transform: translateX(-100px);
+    border-top-right-radius: 0;
+    border-top-left-radius: 25px;
+}
+
+/* --------------------------------- [ Email & Name ] --------------------------------- */
+.navbar-menu nav ul li a.user-info:hover {
+    cursor: default;
+    color: white;
+    background-color: #5D6D7E;
+    transition: none;
+}
