@@ -68,9 +68,10 @@
                     <button class="login-form-btn">CAMBIAR</button>
                 </div>
 
-                <div class="login-link">
+                <div class="login-link recover-link">
+                    <span>Volver a</span>
                     <a href="<?= PATH_URL ?>/pages/login">
-                        Iniciar sesión <i class="fa-sharp fa-solid fa-angles-right"></i>
+                        inicio de sesión <i class="fa-sharp fa-solid fa-angles-right"></i>
                     </a>
                 </div>
             </form>
