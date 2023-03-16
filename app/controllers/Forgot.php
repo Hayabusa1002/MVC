@@ -37,12 +37,14 @@
   
                     if ($q->num_rows != 0)
                     {
+                        date_default_timezone_set('America/Mexico_City');
                         $row = mysqli_fetch_assoc($q);
                         
                         $enc_email   = password_hash($this->email,   PASSWORD_DEFAULT);
                         $enc_id_card = password_hash($this->id_card, PASSWORD_DEFAULT);
+                        $enc_date    = password_hash(date('Y-m-d', time()), PASSWORD_DEFAULT);
 
-                        $link = PATH_URL . '/recover/index/' . $row['USER_ID'] . '_' . $enc_email . '_' . $enc_id_card . '_' . $row['PASSWORD'];
+                        $link = PATH_URL . '/recover/index/' . $row['USER_ID'] . '_' . $enc_email . '_' . $enc_id_card . '_' . $row['PASSWORD'] . '_' . $enc_date;
 
                         $body = '<h1>Recuperación de contraseña</h1><br>
                                  Usted ha solicitado recuperar su contraseña, estos son sus datos registrados:
