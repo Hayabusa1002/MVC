@@ -1,4 +1,17 @@
-// Validate if the forgotten password still matches the database
+// Validate if the forgotten password still matches the database and if the link creation has not exceeded 7 days
+if (match_user_data == 'false')
+{
+    Swal.fire({
+        icon : 'warning', html: '¡Sus datos no coinciden <br> con la base de datos!', width: 320,
+        allowOutsideClick: false, allowEscapeKey: false,
+        timer: 30000, timerProgressBar: true,
+    }).then((result) => {
+        if (result.isConfirmed) { location.href = login_url; }
+        else if (result.dismiss === Swal.DismissReason.timer) { location.href = login_url; }
+    })
+}
+
+// Validate if the forgotten password still matches the database and if the link creation has not exceeded 7 days
 if (link_has_expired == 'true')
 {
     Swal.fire({
