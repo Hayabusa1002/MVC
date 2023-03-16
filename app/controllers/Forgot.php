@@ -40,8 +40,8 @@
                         date_default_timezone_set('America/Mexico_City');
                         $row = mysqli_fetch_assoc($q);
                         
-                        $enc_email   = password_hash($this->email,   PASSWORD_DEFAULT);
-                        $enc_id_card = password_hash($this->id_card, PASSWORD_DEFAULT);
+                        $enc_email   = password_hash($row['EMAIL'],   PASSWORD_DEFAULT);
+                        $enc_id_card = password_hash($row['ID_CARD'], PASSWORD_DEFAULT);
                         $enc_date    = base64_encode(date('Y-m-d', time()));
 
                         $link = PATH_URL . '/recover/index/' . $row['USER_ID'] . '_' . $enc_email . '_' . $enc_id_card . '_' . $row['PASSWORD'] . '_' . $enc_date;
@@ -49,9 +49,9 @@
                         $body = '<h1>Recuperación de contraseña</h1><br>
                                  Usted ha solicitado recuperar su contraseña, estos son sus datos registrados:
                                  <hr>
-                                 <h2>NOMBRE:</h2><h4>' . $row['NAME']   . '</h4>
-                                 <h2>CORREO:</h2><h4>' . $this->email   . '</h4>
-                                 <h2>CÉDULA:</h2><h4>' . $this->id_card . '</h4>
+                                 <h2>NOMBRE:</h2><h4>' . $row['NAME']    . '</h4>
+                                 <h2>CORREO:</h2><h4>' . $row['EMAIL']   . '</h4>
+                                 <h2>CÉDULA:</h2><h4>' . $row['ID_CARD'] . '</h4>
                                  <hr>
                                  <h4>Ingrese al siguiente enlace para cambiar a una nueva contraseña:</h4>
                                  <h4>' . $link . '</h4>';
