@@ -34,7 +34,7 @@ CREATE TABLE `tbl_requests` (
   `USER_ROLE` enum('admin','normal') DEFAULT NULL,
   `EMAIL` varchar(100) DEFAULT NULL,
   `REQUEST_DATE` date DEFAULT NULL,
-  `ANSWER` enum('approved','declined') DEFAULT NULL,
+  `ANSWER` enum('approved','denied') DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
