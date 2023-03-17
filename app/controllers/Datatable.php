@@ -6,15 +6,16 @@
         # Load models and Mailer
         public function __construct()
         {
-            if (isset($_POST['name']) && isset($_POST['id_card']) && isset($_POST['role']) && isset($_POST['email']) && isset($_POST['answer']))
+            if (isset($_POST['request_id']) && isset($_POST['name']) && isset($_POST['id_card']) && isset($_POST['role']) && isset($_POST['email']) && isset($_POST['answer']))
             {
                 // Declare inputs as variables
-                $this->name     = $_POST['name'];
-                $this->id_card  = $_POST['id_card'];
-                $this->role     = $_POST['role'];
-                $this->email    = $_POST['email'];
-                $this->answer   = $_POST['answer'];
-                $this->creator  = $_SESSION['loginSuccess'];
+                $this->request_id   = $_POST['request_id'];
+                $this->name         = $_POST['name'];
+                $this->id_card      = $_POST['id_card'];
+                $this->role         = $_POST['role'];
+                $this->email        = $_POST['email'];
+                $this->answer       = $_POST['answer'];
+                $this->creator      = $_SESSION['loginSuccess'];
                 
                 // Normalize inputs
                 $this->name  = mb_strtoupper($this->name,  'utf-8');
@@ -46,7 +47,7 @@
         public function requestForm()
         {
             // 1. filter: fields must not be empty
-            if (!empty($this->name) && !empty($this->id_card) && !empty($this->role) && !empty($this->email) && !empty($this->answer))
+            if (!empty($this->request_id) && !empty($this->name) && !empty($this->id_card) && !empty($this->role) && !empty($this->email) && !empty($this->answer))
             {
                 // 2.1. Proccess for answer: approved
                 if ($this->answer == 'approved')
@@ -63,11 +64,15 @@
                                 // 3.3.2. filter: email extension validation
                                 if ($this->emailExtension($this->email))
                                 {
+                                    $q = $this->datatableModel->selectUser($this->email, $this->id_card);
+
                                     // 4. filter: user must be new
-                                    if (!$this->datatableModel->verifyUser($this->email, $this->id_card))
+                                    if ($q->num_rows == 0)
                                     {
+                                        $row = mysqli_fetch_assoc($q);
+
                                         // 5. filter: sql update validation
-                                        if ($this->datatableModel->updateAnswer($this->name, $this->id_card, $this->answer))
+                                        if ($this->datatableModel->updateAnswer($this->request_id, $this->answer))
                                         {
                                             // 6. filter: sql insert validation
                                             if ($this->datatableModel->sqlInsertUser($this->name, $this->id_card, $this->role, $this->email, $this->creator))
@@ -113,22 +118,31 @@
                 // 2.2. Proccess for answer: deny
                 else if ($this->answer == 'denied')
                 {
-                    // 4. filter: sql update validation
-                    if ($this->datatableModel->updateAnswer($this->name, $this->id_card, $this->answer))
+                    // 3. filter: existing request validation
+                    $q = $this->datatableModel->selectRequest($this->request_id);
+                        
+                    if ($q->num_rows != 0)
                     {
-                        $body = '<h1>Solicitud de nuevo usuario</h1><br>
-                                Usted ha solicitado usuario de acceso al sitio web, estos son sus datos registrados:
-                                <hr>
-                                <h2>NOMBRE:</h2><h4>' . $row['NAME']    . '</h4>
-                                <h2>CORREO:</h2><h4>' . $row['EMAIL']   . '</h4>
-                                <h2>CÉDULA:</h2><h4>' . $row['ID_CARD'] . '</h4>
-                                <hr>
-                                <h4>Esta solicitud de usuario ha sido rechazada, comuníquese con el administrador encargado para mayor detalle.</h4>';
+                        $row = mysqli_fetch_assoc($q);
 
-                        if ($this->mailer->sendMail($this->email, utf8_decode($row['NAME']), utf8_decode('Solicitud de nuevo usuario'), utf8_decode($body))) { echo "¡Enviado correctamente!"; }
-                        else { echo "¡Error al enviar correo!"; }
+                        // 4. filter: sql update validation
+                        if ($this->datatableModel->updateAnswer($this->request_id, $this->answer))
+                        {
+                            $body = '<h1>Solicitud de nuevo usuario</h1><br>
+                            Usted ha solicitado usuario de acceso al sitio web, estos son sus datos registrados:
+                            <hr>
+                            <h2>NOMBRE:</h2><h4>' . $row['NAME']    . '</h4>
+                            <h2>CORREO:</h2><h4>' . $row['EMAIL']   . '</h4>
+                            <h2>CÉDULA:</h2><h4>' . $row['ID_CARD'] . '</h4>
+                            <hr>
+                            <h4>Esta solicitud de usuario ha sido rechazada, comuníquese con el administrador encargado para mayor detalle.</h4>';
+
+                            if ($this->mailer->sendMail($this->email, utf8_decode($row['NAME']), utf8_decode('Solicitud de nuevo usuario'), utf8_decode($body))) { echo "¡Enviado correctamente!"; }
+                            else { echo "¡Error al enviar correo!"; }
+                        }
+                        else { echo "Algo salió mal. <br> ¡Inténtelo de nuevo!"; }
                     }
-                    else { echo "Algo salió mal. <br> ¡Inténtelo de nuevo!"; }
+                    else { echo "¡Los cambios no coinciden!"; }
                 }
             }
             else { echo "¡Todos los campos <br> son obligatorios!"; }

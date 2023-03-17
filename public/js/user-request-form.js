@@ -60,6 +60,8 @@ function requestForm(val, data = '')
 													'<option value="denied">Denegar</option>' +
 												'</select>' +
 											'</div>' +
+
+											'<input name="request_id" type="hidden"/>' +
 										'</div>' +
 									'</div>' +
 
@@ -81,6 +83,7 @@ function requestForm(val, data = '')
 				// Set inputs values from row's data
 				userData = data;
 
+				$('input[name="request_id"]').val(data['REQUEST_ID']);
 				$('input[name="name"]').val(data['NAME']);
 				$('input[name="id_card"]').val(data['ID_CARD']);
 				$('select[name="role"]').val(data['USER_ROLE']);
@@ -111,18 +114,18 @@ function requestForm(val, data = '')
 								Swal.fire({
 									icon : iconText, html: data, width: 320,
 									allowOutsideClick: false, allowEscapeKey: false,
-									timer: 5000, timerProgressBar: true,
+									// timer: 5000, timerProgressBar: true,
 								}).then((result) => {
 									if (result.isConfirmed && data.includes('correctamente'))
 									{
-										$('#users').DataTable().clear().destroy();
-										usersTable();
+										$('#user-request-table').DataTable().clear().destroy();
+										requestTable();
 										Swal.close();
 									}
 									else if (result.dismiss === Swal.DismissReason.timer && data.includes('correctamente'))
 									{
-										$('#users').DataTable().clear().destroy();
-										usersTable();
+										$('#user-request-table').DataTable().clear().destroy();
+										requestTable();
 										Swal.close();
 									}
 									else if (result.isConfirmed) { requestForm(true, userData); }

@@ -23,9 +23,9 @@
 
     // Mailer
     # Sender password
-    define('PSWD_SMTP', 'xxxxxxxxxxxxxxxx');
+    define('PSWD_SMTP', 'uzkzkbbiibqodanx');
     # Sender email
-    define('USER_SMTP', 'LDFG1002@gmail.com');
+    define('USER_SMTP', 'phpmailer1002@gmail.com');
     # Sender name
     define('NAME_SMTP', 'MVC proofs');
     # Mailer server port

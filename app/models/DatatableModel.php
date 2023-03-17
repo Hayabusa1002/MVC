@@ -27,54 +27,48 @@
         // Query with pending requests (not answered)
         public function requestQuery() { return $this->q->query("SELECT * FROM {$this->db}.tbl_requests WHERE ANSWER = '' OR ANSWER IS NULL"); }
 
-        public function updateAnswer($email, $id_card, $answer)
+        public function selectRequest($id) { return $this->q->query("SELECT * FROM {$this->db}.tbl_requests WHERE REQUEST_ID = {$id}"); }
+
+        public function updateAnswer($id, $answer)
         {
-            $q1 = $this->q->query("UPDATE {$this->db}.tbl_requests SET ASNWER = '{$answer}' WHERE EMAIL = '{$email}' AND ID_CARD = {$id_card}");
+            $q1 = $this->q->query("UPDATE {$this->db}.tbl_requests SET ANSWER = '{$answer}' WHERE REQUEST_ID = {$id}");
 
             if ($q1) { return true; }
             else { return false; }
         }
 
-        public function verifyUser($email, $id_card)
-        {
-            $q2 = $this->q->query("SELECT * FROM {$this->db}.tbl_users WHERE EMAIL = '{$email}' AND ID_CARD = {$id_card}");
-
-            if ($q2->num_rows != 0) { return true; }
-            else { return false; }
-        }
+        public function selectUser($email, $id_card) { return $this->q->query("SELECT * FROM {$this->db}.tbl_users WHERE EMAIL = '{$email}' AND ID_CARD = {$id_card}"); }
 
         public function sqlInsertUser($name, $id_card, $role, $email, $creator)
         {
             // 1. Get last PRIMARY KEY IN tbl_users
-            $q3 = $this->q->query("SELECT PRIMARY_ID FROM {$this->db}.tbl_users GROUP BY PRIMARY_ID DESC");
+            $q2 = $this->q->query("SELECT PRIMARY_ID FROM {$this->db}.tbl_users GROUP BY PRIMARY_ID DESC");
 
             // 2. Set current day
             date_default_timezone_set('America/Mexico_City');
 
             // 3. Define all values
-            $this->primary_id   = $q3->num_rows != 0 ? mysqli_fetch_assoc($q3)['PRIMARY_ID'] + 1 : 1;
+            $this->primary_id   = $q2->num_rows != 0 ? mysqli_fetch_assoc($q2)['PRIMARY_ID'] + 1 : 1;
             $this->user_id      = uniqid('mvc' . $this->primary_id);
             $this->name         = $name;
             $this->id_card      = $id_card;
             $this->email        = $email;
-            $this->password     = password_hash('mvc' + $id_card, PASSWORD_DEFAULT);
-            $this->user_role    = $user_role;
+            $this->password     = password_hash('mvc' . $id_card, PASSWORD_DEFAULT);
+            $this->user_role    = $role;
             $this->first_login  = 1;
             $this->last_editor  = null;
             $this->creator      = $creator;
             $this->date_created = date('Y-m-d', time());       
 
             // 4. Create the user
-            $q4 = $this->q->query("INSERT INTO {$this->db}.tbl_users (PRIMARY_ID, USER_ID, NAME, ID_CARD, EMAIL, PASSWORD, USER_ROLE, 
+            $q3 = $this->q->query("INSERT INTO {$this->db}.tbl_users (PRIMARY_ID, USER_ID, NAME, ID_CARD, EMAIL, PASSWORD, USER_ROLE, 
                                                                       FIRST_LOGIN, LAST_EDITOR, CREATOR, DATE_CREATED)
                                    VALUES ({$this->primary_id}, '{$this->user_id}', '{$this->name}', {$this->id_card}, '{$this->email}', 
                                            '{$this->password}', '{$this->user_role}', {$this->first_login}, '{$this->last_editor}', 
                                            '{$this->creator}', '{$this->date_created}')");
 
-            if ($q4) { return true; }
+            if ($q3) { return true; }
             else { return false; }
         }
-
-        public function selectUser($email, $id_card) { return $this->q->query("SELECT * FROM {$this->db}.tbl_users WHERE EMAIL = '{$email}' AND ID_CARD = {$id_card}"); }
     }
 ?>
