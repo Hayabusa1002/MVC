@@ -23,7 +23,7 @@
 
     // Mailer
     # Sender password
-    define('PSWD_SMTP', 'uzkzkbbiibqodanx');
+    define('PSWD_SMTP', 'xxxxxxxxxxxxxxxx');
     # Sender email
     define('USER_SMTP', 'phpmailer1002@gmail.com');
     # Sender name
