@@ -2,6 +2,7 @@
 
 <!-- Back-end JavaSript -->
 <script>
+    match_user_data  = '<?= $data['match_user_data'] ?>';
     link_has_expired = '<?= $data['link_has_expired'] ?>';
     login_url        = '<?= PATH_URL ?>/pages/login';
     url              = '<?= PATH_URL ?>/recover/updatePswd';

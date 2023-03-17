@@ -1,7 +1,7 @@
 <?php
     /* 
         NOTE: URL structure
-        $link = PATH_URL . '/recover/index/' . $row['USER_ID'] . '_' . $enc_email . '_' . $enc_id_card . '_' . $row['PASSWORD'];
+        $link = PATH_URL . '/recover/index/' . $row['USER_ID'] . '_' . $enc_email . '_' . $enc_id_card . '_' . $row['PASSWORD'] . '_' . $enc_date;
     */
 
     /* In order to inherit the methods of the Main Controller, it extends the Controller class */
@@ -28,21 +28,29 @@
                 $this->userData[1] = encrypted EMAIL
                 $this->userData[2] = encrypted ID_CARD
                 $this->userData[3] = encrypted last PASSWORD
+                $this->userData[4] = date link created
             */
 
             // 3. Use model and load view
-            if (!empty($this->userData[0]) && !empty($this->userData[1]) && !empty($this->userData[2]) && !empty($this->userData[3]))
+            if (!empty($this->userData[0]) && !empty($this->userData[1]) && !empty($this->userData[2]) && !empty($this->userData[3]) && !empty($this->userData[4]))
             {
                 // 4. Get user data from database with USER ID
                 $q = $this->RecoverModel->selectUser($this->userData[0]);
                 $this->row = mysqli_fetch_assoc($q);
 
-                // 5. Validate if the forgotten password still matches the database
-                $link_has_expired = $this->userData[3] != $this->row['PASSWORD'] ? 'true' : 'false';
+                // 5. Validate Email and ID Card
+                $match_user_data = password_verify($this->row['EMAIL'], $this->userData[1]) && password_verify($this->row['ID_CARD'], $this->userData[2]) ? 'true' : 'false';
 
-                // 6. Pass the Parameter to 2nd Back-end
+                // 6. Validate if the forgotten password still matches the database and if the link creation has not exceeded 7 days
+                date_default_timezone_set('America/Mexico_City');
+                $today = time();
+                $link_due_date = strtotime(base64_decode($this->userData[4]) . '+ 7 days');
+                $link_has_expired = ($this->userData[3] != $this->row['PASSWORD']) || ($today > $link_due_date) ? 'true' : 'false';
+
+                // 7. Pass the Parameter to 2nd Back-end
                 $data = [
                             'title'             => TITLE,
+                            'match_user_data'   => $match_user_data,
                             'link_has_expired'  => $link_has_expired,
                             'userData'          => $this->row
                         ];
@@ -79,13 +87,13 @@
                                 $enc_pswd = password_hash($this->new, PASSWORD_DEFAULT); # NEW PASSWORD ENCRIPTED
 
                                 if ($this->RecoverModel->sqlUpdatePassword($this->user_id, $this->id_card, $this->email, $enc_pswd)) { echo "¡Proceso Exitoso!"; }
-                                else { echo "Algo salió mal. <br> ¡Inténtelo de nuevo!"; }  
+                                else { echo "Algo salió mal. <br> ¡Inténtelo de nuevo!"; }
                             }
                             else { echo "¡Contraseñas no coinciden!"; }
                         }
                         else { echo "La contraseña debe tener <br> mínimo 8 caracteres"; }
                     }
-                    else { echo "La nueva contraseña <br> se encuentra en uso"; }
+                    else { echo "La nueva contraseña <br> coincide con la anterior"; }
                 }
                 else { echo "¡Todos los campos <br> son obligatorios!"; }
             }
