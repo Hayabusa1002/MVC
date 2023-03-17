@@ -45,7 +45,7 @@
                 date_default_timezone_set('America/Mexico_City');
                 $today = time();
                 $link_due_date = strtotime(base64_decode($this->userData[4]) . '+ 7 days');
-                $link_has_expired = ($this->userData[3] != $this->row['PASSWORD']) && ($today > $link_due_date) ? 'true' : 'false';
+                $link_has_expired = ($this->userData[3] != $this->row['PASSWORD']) || ($today > $link_due_date) ? 'true' : 'false';
 
                 // 7. Pass the Parameter to 2nd Back-end
                 $data = [
@@ -87,13 +87,13 @@
                                 $enc_pswd = password_hash($this->new, PASSWORD_DEFAULT); # NEW PASSWORD ENCRIPTED
 
                                 if ($this->RecoverModel->sqlUpdatePassword($this->user_id, $this->id_card, $this->email, $enc_pswd)) { echo "¡Proceso Exitoso!"; }
-                                else { echo "Algo salió mal. <br> ¡Inténtelo de nuevo!"; }  
+                                else { echo "Algo salió mal. <br> ¡Inténtelo de nuevo!"; }
                             }
                             else { echo "¡Contraseñas no coinciden!"; }
                         }
                         else { echo "La contraseña debe tener <br> mínimo 8 caracteres"; }
                     }
-                    else { echo "La nueva contraseña <br> se encuentra en uso"; }
+                    else { echo "La nueva contraseña <br> coincide con la anterior"; }
                 }
                 else { echo "¡Todos los campos <br> son obligatorios!"; }
             }
