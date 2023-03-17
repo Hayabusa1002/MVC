@@ -109,8 +109,8 @@
 }
 
 .card-body.datatable table thead {
-    background: rgba(128, 128, 128, 0.5);
-    color: white;
+    background: rgba(128, 128, 128, 0.25);
+    color: black;
 }
 
 div.form-wrapper.swal { overflow-x: hidden; }

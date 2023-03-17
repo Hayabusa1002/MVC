@@ -56,7 +56,7 @@ function requestForm(val, data = '')
 												'<span class="input-group-text"><i class="fa-duotone fa-pen-to-square"></i></span>' +
 												'<select name="answer" class="form-control" required>' +
 													'<option value="" selected disabled hidden>* Seleccione respuesta</option>' +
-													'<option value="approve">Aprovar</option>' +
+													'<option value="approved">Aprovar</option>' +
 													'<option value="denied">Denegar</option>' +
 												'</select>' +
 											'</div>' +
@@ -125,8 +125,8 @@ function requestForm(val, data = '')
 										usersTable();
 										Swal.close();
 									}
-									else if (result.isConfirmed) { editUser(true, editOpt, userData); }
-									else if (result.dismiss === Swal.DismissReason.timer) { editUser(true, editOpt, userData); }
+									else if (result.isConfirmed) { requestForm(true, userData); }
+									else if (result.dismiss === Swal.DismissReason.timer) { requestForm(true, userData); }
 								})
 							}
 						}
