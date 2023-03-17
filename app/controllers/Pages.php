@@ -44,5 +44,11 @@
             }
             else { header('location: ' . PATH_URL . '/pages/login'); }
         }
+
+        public function change()
+        {
+            $data = [ 'title' => TITLE ];
+            $this->view('pages/change', $data);
+        }
     }
 ?>
