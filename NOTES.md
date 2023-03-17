@@ -6,3 +6,5 @@
 * Add user table
 
 * In user requests add 'reason for denial' input
+
+* Make the user change his temp password
