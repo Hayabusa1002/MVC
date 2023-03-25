@@ -11,6 +11,8 @@ Tiene como recursos open source:
 * librería Tilt de JQuery         --> https://gijsroge.github.io/tilt.js/
 * librería Datatable de JQuery    --> https://datatables.net
 * Composer                        --> https://getcomposer.org y https://packagist.org
+* Paquete PHPMailer               --> https://packagist.org/packages/phpmailer/phpmailer
+* Paquete PHPWord                 --> https://packagist.org/packages/phpoffice/phpword
 
 Organización:
 

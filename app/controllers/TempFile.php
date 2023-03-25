@@ -8,7 +8,7 @@
         private $primary_id;
         private $user_id;
         private $name           = 'Nombre Ejemplo';
-        private $id_card        = 0123456789;
+        private $id_card        = '0123456789';
         private $email          = 'correo_ejemplo@gmail.com';
         private $password;
         private $user_role      = 'admin';
@@ -87,6 +87,14 @@
 
             if ($q2) { ?><script>alert('¡Usuario creado!')</script><?php }
             else { ?><script>alert('¡Algo salió mal!')</script><?php }
+        }
+
+        # Back-end: proof PHPWord
+        public function word()
+        {
+            $word = new Word;
+            $word->example();
+            $word->exampleWithTemplate();
         }
     }
 ?>
