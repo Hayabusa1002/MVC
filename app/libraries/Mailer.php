@@ -6,7 +6,7 @@
     use PHPMailer\PHPMailer\Exception;
 
     # Load Composer's autoloader
-    require_once 'phpmailer/vendor/autoload.php';
+    require_once '../vendor/autoload.php';
 
     class Mailer
     {
