@@ -8,7 +8,7 @@
         private $primary_id;
         private $user_id;
         private $name           = 'Nombre Ejemplo';
-        private $id_card        = '0123456789';
+        private $id_card        = 1234567890;
         private $email          = 'correo_ejemplo@gmail.com';
         private $password;
         private $user_role      = 'admin';
@@ -35,7 +35,7 @@
             $this->creator = $this->user_id;
 
             // 2. Encrypt the password
-            $this->password = password_hash('mvc0123456789', PASSWORD_DEFAULT);
+            $this->password = password_hash('mvc1234567890', PASSWORD_DEFAULT);
 
             // 3. Set current day
             date_default_timezone_set('America/Mexico_City');
